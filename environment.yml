@@ -101,14 +101,24 @@ dependencies:
       - aiosignal==1.3.1
       - aitviewer==1.12.0
       - antlr4-python3-runtime==4.8
+      - asttokens==2.4.1
       - async-timeout==4.0.3
       - asynctest==0.13.0
       - attrs==23.1.0
+      - backcall==0.2.0
+      - blinker==1.7.0
       - cachetools==5.3.2
       - charset-normalizer==3.3.2
       - chumpy==0.70
       - click==8.1.7
+      - comm==0.2.0
+      - dataclasses-json==0.6.3
+      - decorator==5.1.1
+      - deprecated==1.2.14
       - docker-pycreds==0.4.0
+      - entrypoints==0.4
+      - executing==2.0.1
+      - flask==3.0.0
       - frozenlist==1.3.3
       - future==0.18.3
       - fvcore==0.1.5.post20221221
@@ -124,32 +134,56 @@ dependencies:
       - importlib-metadata==6.7.0
       - importlib-resources==5.12.0
       - iopath==0.1.10
+      - ipycanvas==0.13.1
+      - ipyevents==2.0.2
+      - ipython==7.34.0
+      - ipywidgets==8.1.1
+      - itsdangerous==2.1.2
+      - jedi==0.19.1
+      - jinja2==3.1.2
       - joblib==1.3.2
+      - jupyter-client==7.4.9
+      - jupyter-core==5.5.0
+      - jupyterlab-widgets==3.0.9
       - markdown==3.4.4
       - markupsafe==2.1.3
+      - marshmallow==3.20.1
+      - matplotlib-inline==0.1.6
       - moderngl==5.9.0
       - moderngl-window==2.4.4
       - multidict==6.0.4
       - multipledispatch==1.0.0
+      - mypy-extensions==1.0.0
+      - nest-asyncio==1.5.8
       - numpy==1.21.6
       - oauthlib==3.2.2
       - omegaconf==2.1.2
       - opencv-contrib-python-headless==4.8.1.78
+      - parso==0.8.3
       - pathtools==0.1.2
+      - pexpect==4.9.0
+      - pickleshare==0.7.5
+      - platformdirs==4.0.0
       - portalocker==2.7.0
       - promise==2.3
+      - prompt-toolkit==3.0.41
       - protobuf==3.20.3
       - psutil==5.9.6
+      - ptyprocess==0.7.0
+      - pure-eval==0.2.2
       - pyasn1==0.5.1
       - pyasn1-modules==0.3.0
+      - pybind11==2.11.1
       - pydeprecate==0.3.1
       - pyglet==2.0.10
+      - pygments==2.17.2
       - pyqt5==5.15.10
       - pyqt5-qt5==5.15.2
       - pyqt5-sip==12.13.0
       - pyrr==0.10.3
       - pytorch-lightning==1.5.7
       - pytorch3d==0.7.5
+      - pyzmq==24.0.1
       - requests==2.31.0
       - requests-oauthlib==1.3.1
       - roma==1.4.1
@@ -161,6 +195,7 @@ dependencies:
       - shortuuid==1.0.11
       - smmap==5.0.1
       - smplx==0.1.28
+      - stack-data==0.6.3
       - tabulate==0.9.0
       - tensorboard==2.11.2
       - tensorboard-data-server==0.6.1
@@ -169,13 +204,19 @@ dependencies:
       - torch==1.9.1
       - torchmetrics==0.11.4
       - torchvision==0.10.1
+      - tornado==6.4b1
       - tqdm==4.66.1
+      - traitlets==5.14.0
       - trimesh==3.23.5
+      - typing-inspect==0.9.0
       - urllib3==2.0.7
-      - usd-core==23.11
+      - usd-core==23.5
       - wandb==0.13.1
+      - wcwidth==0.2.12
       - websockets==11.0.3
-      - werkzeug==2.2.3
+      - werkzeug==3.0.1
+      - widgetsnbextension==4.0.9
+      - wrapt==1.16.0
       - yacs==0.1.8
       - yarl==1.9.3
       - zipp==3.15.0
