@@ -79,7 +79,7 @@ class V2AModel(pl.LightningModule):
                 self.log(k, v.item(), prog_bar=True, on_step=True)
         return loss_output["loss"]
 
-    def training_epoch_end(self, outputs) -> None:        
+    def on_train_epoch_end(self) -> None:        
         # Canonical mesh update every 20 epochs
         if self.current_epoch != 0 and self.current_epoch % 20 == 0:
             cond = {'smpl': torch.zeros(1, 69).float().cuda()}
@@ -87,7 +87,7 @@ class V2AModel(pl.LightningModule):
             self.model.mesh_v_cano = torch.tensor(mesh_canonical.vertices[None], device = self.model.smpl_v_cano.device).float()
             self.model.mesh_f_cano = torch.tensor(mesh_canonical.faces.astype(np.int64), device=self.model.smpl_v_cano.device)
             self.model.mesh_face_vertices = index_vertices_by_faces(self.model.mesh_v_cano, self.model.mesh_f_cano)
-        return super().training_epoch_end(outputs)
+        return super().on_train_epoch_end()
 
     def query_oc(self, x, cond):
         
@@ -172,7 +172,8 @@ class V2AModel(pl.LightningModule):
     def validation_step_end(self, batch_parts):
         return batch_parts
 
-    def validation_epoch_end(self, outputs) -> None:
+    def on_validation_epoch_end(self) -> None:
+        outputs = self.validation_step_outputs
         img_size = outputs[0]["img_size"]
 
         rgb_pred = torch.cat([output["rgb_values"] for output in outputs], dim=0)
