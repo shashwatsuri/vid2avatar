@@ -166,6 +166,7 @@ class V2AModel(pl.LightningModule):
             "fg_rgb_values": model_outputs["fg_rgb_values"].detach().clone(),
             **targets,
         })
+        torch.cuda.empty_cache()
             
         return output
 
