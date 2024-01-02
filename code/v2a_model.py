@@ -17,7 +17,8 @@ from lib.utils import utils
 class V2AModel(pl.LightningModule):
     def __init__(self, opt) -> None:
         super().__init__()
-
+        self.training_step_outputs = []
+        self.validation_step_outputs = []
         self.opt = opt
         num_training_frames = opt.dataset.metainfo.end_frame - opt.dataset.metainfo.start_frame
         self.betas_path = os.path.join(hydra.utils.to_absolute_path('..'), 'data', opt.dataset.metainfo.data_dir, 'mean_shape.npy')
@@ -77,6 +78,7 @@ class V2AModel(pl.LightningModule):
                 self.log(k, v.item(), prog_bar=True, on_step=True)
             else:
                 self.log(k, v.item(), prog_bar=True, on_step=True)
+        self.training_step_outputs.append(loss_output["loss"])
         return loss_output["loss"]
 
     def on_train_epoch_end(self) -> None:        
@@ -87,6 +89,8 @@ class V2AModel(pl.LightningModule):
             self.model.mesh_v_cano = torch.tensor(mesh_canonical.vertices[None], device = self.model.smpl_v_cano.device).float()
             self.model.mesh_f_cano = torch.tensor(mesh_canonical.faces.astype(np.int64), device=self.model.smpl_v_cano.device)
             self.model.mesh_face_vertices = index_vertices_by_faces(self.model.mesh_v_cano, self.model.mesh_f_cano)
+        epoch_average = torch.stack(self.training_step_outputs).mean()
+        self.training_step_outputs.clear()
         return super().on_train_epoch_end()
 
     def query_oc(self, x, cond):
@@ -166,15 +170,14 @@ class V2AModel(pl.LightningModule):
             "fg_rgb_values": model_outputs["fg_rgb_values"].detach().clone(),
             **targets,
         })
-        torch.cuda.empty_cache()
-            
+        self.validation_step_outputs.append(output)    
         return output
 
     def validation_step_end(self, batch_parts):
         return batch_parts
 
-    def on_validation_epoch_end(self) -> None:
-        outputs = self.validation_step_outputs
+    def on_validation_epoch_end(self):
+        outputs = [self.validation_step_outputs[-1]]
         img_size = outputs[0]["img_size"]
 
         rgb_pred = torch.cat([output["rgb_values"] for output in outputs], dim=0)
@@ -209,7 +212,6 @@ class V2AModel(pl.LightningModule):
 
         canonical_mesh = outputs[0]['canonical_mesh']
         canonical_mesh.export(f"rendering/{self.current_epoch}.ply")
-
         cv2.imwrite(f"rendering/{self.current_epoch}.png", rgb[:, :, ::-1])
         cv2.imwrite(f"normal/{self.current_epoch}.png", normal[:, :, ::-1])
         cv2.imwrite(f"fg_rendering/{self.current_epoch}.png", fg_rgb[:, :, ::-1])
@@ -265,7 +267,6 @@ class V2AModel(pl.LightningModule):
 
             batch_targets = {"rgb": targets["rgb"][:, indices].detach().clone() if 'rgb' in targets.keys() else None,
                              "img_size": targets["img_size"]}
-
             with torch.no_grad():
                 model_outputs = self.model(batch_inputs)
             results.append({"rgb_values":model_outputs["rgb_values"].detach().clone(), 

@@ -1,9 +1,31 @@
+# metainfo:
+#     gender: 'male'
+#     data_dir : parkinglot/
+#     subject: "parkinglot"
+#     start_frame: 0
+#     end_frame: 42
+
+# metainfo:
+#     gender: 'male'
+#     data_dir : smpl_noscan/
+#     subject: "smpl_noscan"
+#     start_frame: 0
+#     end_frame: 20
+
+# metainfo:
+#     gender: 'male'
+#     data_dir : smpl_scan/
+#     subject: "smpl_scan"
+#     start_frame: 0
+#     end_frame: 16
+
 metainfo:
     gender: 'male'
-    data_dir : parkinglot/
-    subject: "parkinglot"
+    data_dir : smpl_scan_continuous/
+    subject: "smpl_scan_continuous"
     start_frame: 0
-    end_frame: 42
+    end_frame: 40
+
 
 train:
     type: "Video"
@@ -23,7 +45,7 @@ valid:
     worker: 8
 
     num_sample : -1
-    pixel_per_batch: 2048 
+    pixel_per_batch: 1024 
 
 test:
     type: "VideoTest"
@@ -34,4 +56,4 @@ test:
     worker: 8
 
     num_sample : -1
-    pixel_per_batch: 2048
+    pixel_per_batch: 1024

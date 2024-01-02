@@ -126,7 +126,8 @@ class ValDataset(torch.utils.data.Dataset):
         return 1
 
     def __getitem__(self, idx):
-        image_id = int(np.random.choice(len(self.dataset), 1))  
+        # image_id = int(np.random.choice(len(self.dataset), 1))  
+        image_id = 1
         self.data = self.dataset[image_id]
         inputs, images = self.data
 

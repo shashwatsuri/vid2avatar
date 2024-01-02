@@ -248,7 +248,6 @@ class V2A(nn.Module):
         if pnts_c.shape[0] == 0:
             return pnts_c.detach()
         pnts_c.requires_grad_(True)
-
         pnts_d = self.deformer.forward_skinning(pnts_c.unsqueeze(0), None, tfs).squeeze(0)
         num_dim = pnts_d.shape[-1]
         grads = []
