@@ -9,6 +9,7 @@ outputs
 *.obj
 *.ipynb
 *.so
+*.pth
 data
 code/UNKNOWN.egg-info
 code/dist
